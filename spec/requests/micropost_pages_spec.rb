@@ -41,5 +41,12 @@ describe "Micropost pages" do
         expect { click_link "delete" }.to change(Micropost, :count).by(-1)
       end
     end
+
+    # delete link should not appear for microposts not created by the current user
+    describe "as incorrect user" do
+      if user =! @correct_user
+      it { should_not have_link('delete') }
+      end 
+    end 
   end
 end
