@@ -1,0 +1,12 @@
+<li>
+  <span class="plant"><%= seed.plant %></span>
+  <i>Source:</i> <span class="source"><%= seed.source %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(seed.created_at) %> ago.
+  </span>
+  <% if current_user?(seed.user) %>
+    <%= link_to "delete", seed, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: seed.plant %>
+  <% end %>
+</li>

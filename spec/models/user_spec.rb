@@ -27,6 +27,7 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:microposts) }
+  it { should respond_to(:seeds) }
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -175,27 +176,72 @@ describe "email address with mixed case" do
       end
     end
 
+    #describe "status" do
+    #  let(:unfollowed_post) do
+    #    FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+    #  end
+
+    #  let(:followed_user) { FactoryGirl.create(:user) }
+    #  before do
+    #    @user.follow!(followed_user)
+    #    3.times { followed_user.microposts.create!(content: "Lorem ipsum") }
+    #  end
+
+    #  its(:feed) { should include(newer_micropost) }
+    #  its(:feed) { should include(older_micropost) }
+    #  its(:feed) { should_not include(unfollowed_post) }
+    #  its(:feed) do
+    #    followed_user.microposts.each do |micropost|
+    #      should include(micropost)
+    #    end
+    #  end
+    #end
+  end
+
+  describe "seed associations" do
+
+    before { @user.save }
+    let!(:older_seed) do 
+      FactoryGirl.create(:seed, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_seed) do
+      FactoryGirl.create(:seed, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right seeds in the right order" do
+      @user.seeds.should == [newer_seed, older_seed]
+    end
+
+    it "should destroy associated seeds" do
+      seeds = @user.seeds.dup
+      @user.destroy
+      seeds.should_not be_empty
+      seeds.each do |seed|
+        Seed.find_by_id(seed.id).should be_nil
+      end
+    end
+
     describe "status" do
-      let(:unfollowed_post) do
-        FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+      let(:unfollowed_seed) do
+        FactoryGirl.create(:seed, user: FactoryGirl.create(:user))
       end
 
       let(:followed_user) { FactoryGirl.create(:user) }
       before do
         @user.follow!(followed_user)
-        3.times { followed_user.microposts.create!(content: "Lorem ipsum") }
+        3.times { followed_user.seeds.create!(plant: "Pink Rose", source: "Almanac.com") }
       end
 
-      its(:feed) { should include(newer_micropost) }
-      its(:feed) { should include(older_micropost) }
-      its(:feed) { should_not include(unfollowed_post) }
+      its(:feed) { should include(newer_seed) }
+      its(:feed) { should include(older_seed) }
+      its(:feed) { should_not include(unfollowed_seed) }
       its(:feed) do
-        followed_user.microposts.each do |micropost|
-          should include(micropost)
+        followed_user.seeds.each do |seed|
+          should include(seed)
         end
       end
     end
-  end
+  end  
 
   describe "following" do
     let(:other_user) { FactoryGirl.create(:user) }    

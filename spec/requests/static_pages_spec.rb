@@ -19,23 +19,42 @@ describe "Static pages" do
     it { should_not have_selector 'title', text: '| Home' }
 
     describe "for signed-in users" do
+      #let(:user) { FactoryGirl.create(:user) }
+      #before do
+      #  FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+      #  FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+      #  sign_in user
+      #  visit root_path
+      #end
+
+      #it "should render the user's feed" do
+      #  user.feed.each do |item|
+      #    page.should have_selector("li##{item.id}", text: item.content)
+      #  end
+      #end
+
       let(:user) { FactoryGirl.create(:user) }
       before do
-        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
-        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+        FactoryGirl.create(:seed, user: user, plant: "Pink Rose", source: "Almanac.com")
+        FactoryGirl.create(:seed, user: user, plant: "White Rose", source: "Almanac.com")
         sign_in user
         visit root_path
       end
 
       it "should render the user's feed" do
         user.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.content)
+          page.should have_selector("li##{item.id}", text: item.plant, text: item.source)
         end
       end
 
-      it "should show micropost count" do
-        page.should have_content(user.microposts.count)
-        page.should have_content('microposts')
+    #  it "should show micropost count" do
+    #    page.should have_content(user.microposts.count)
+    #    page.should have_content('microposts')
+    #  end
+
+      it "should show seed count" do
+        page.should have_content(user.seeds.count)
+        page.should have_content('seeds')
       end
 
       describe "follower/following counts" do

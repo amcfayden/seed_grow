@@ -14,4 +14,10 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+
+  factory :seed do
+    plant "Pink Rose"
+    source "Almanac.com"
+    user
+  end
 end

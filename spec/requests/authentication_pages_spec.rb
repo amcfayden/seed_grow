@@ -141,6 +141,19 @@ describe "Authentication" do
         end
       end
 
+      describe "in the Seeds controller" do
+
+        describe "submitting to the create action" do
+          before { post seeds_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete seed_path(FactoryGirl.create(:seed)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
+
       describe "in the Relationships controller" do
         describe "submitting to the create action" do
           before { post relationships_path }
