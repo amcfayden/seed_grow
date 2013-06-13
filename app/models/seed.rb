@@ -1,9 +1,10 @@
 class Seed < ActiveRecord::Base
-  attr_accessible :plant, :source
+  attr_accessible :plant, :source, :zone
   belongs_to :user
 
   validates :plant, presence: true, length: { maximum: 140 }
   validates :source, presence: true, length: { maximum: 140 }
+  validates :zone, presence: true, length: { maximum: 2 }
   validates :user_id, presence: true
 
   default_scope order: 'seeds.created_at DESC'

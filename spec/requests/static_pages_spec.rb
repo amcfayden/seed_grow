@@ -35,15 +35,15 @@ describe "Static pages" do
 
       let(:user) { FactoryGirl.create(:user) }
       before do
-        FactoryGirl.create(:seed, user: user, plant: "Pink Rose", source: "Almanac.com")
-        FactoryGirl.create(:seed, user: user, plant: "White Rose", source: "Almanac.com")
+        FactoryGirl.create(:seed, user: user, plant: "Pink Rose", source: "Almanac.com", zone: 1)
+        FactoryGirl.create(:seed, user: user, plant: "White Rose", source: "Almanac.com", zone: 1)
         sign_in user
         visit root_path
       end
 
       it "should render the user's feed" do
         user.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.plant, text: item.source)
+          page.should have_selector("li##{item.id}", text: item.plant, text: item.source, integer: item.zone)
         end
       end
 

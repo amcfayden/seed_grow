@@ -26,6 +26,7 @@ describe "Seed pages" do
 
       before { fill_in 'seed_plant', with: "Pink Rose" }
       before { fill_in 'seed_source', with: "Almanac.com" }
+      before { fill_in 'seed_zone', with: 1 }
       it "should create a seed" do
         expect { click_button "Post" }.to change(Seed, :count).by(1)
       end

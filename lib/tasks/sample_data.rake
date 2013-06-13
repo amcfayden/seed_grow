@@ -38,7 +38,8 @@ def make_seeds
   50.times do
     content = Faker::Lorem.sentence(5)
     source = "Almanac.com"
-    users.each { |user| user.seeds.create!(plant: content, source: source) }
+    zone = 1
+    users.each { |user| user.seeds.create!(plant: content, source: source, zone: zone) }
   end
 end
 

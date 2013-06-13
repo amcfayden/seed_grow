@@ -56,8 +56,8 @@ describe "User pages" do
   #  let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
 
     let(:user) { FactoryGirl.create(:user) }
-    let!(:s1) { FactoryGirl.create(:seed, user: user, plant: "Pink Rose", source: "Almanac.com") }
-    let!(:s2) { FactoryGirl.create(:seed, user: user, plant: "White Rose", source: "Almanac.com") }
+    let!(:s1) { FactoryGirl.create(:seed, user: user, plant: "Pink Rose", source: "Almanac.com", zone: 1) }
+    let!(:s2) { FactoryGirl.create(:seed, user: user, plant: "White Rose", source: "Almanac.com", zone: 1) }
 
     before { visit user_path(user) }
 
@@ -75,6 +75,8 @@ describe "User pages" do
       it { should have_content(s2.plant) }
       it { should have_content(s1.source) }
       it { should have_content(s2.source) }
+      it { should have_content(s1.zone) }
+      it { should have_content(s2.zone) }
       it { should have_content(user.seeds.count) }
     end
 

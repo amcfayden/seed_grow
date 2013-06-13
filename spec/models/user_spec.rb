@@ -229,7 +229,7 @@ describe "email address with mixed case" do
       let(:followed_user) { FactoryGirl.create(:user) }
       before do
         @user.follow!(followed_user)
-        3.times { followed_user.seeds.create!(plant: "Pink Rose", source: "Almanac.com") }
+        3.times { followed_user.seeds.create!(plant: "Pink Rose", source: "Almanac.com", zone: 1) }
       end
 
       its(:feed) { should include(newer_seed) }

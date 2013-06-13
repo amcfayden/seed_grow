@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529141142) do
+ActiveRecord::Schema.define(:version => 20130608010106) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130529141142) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "zone"
   end
 
   add_index "seeds", ["user_id", "created_at"], :name => "index_seeds_on_user_id_and_created_at"

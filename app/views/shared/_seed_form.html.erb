@@ -1,6 +1,7 @@
 <%= form_for(@seed) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+  	<%= f.text_area :zone, placeholder: "Enter zone, 1 through 13" %>
     <%= f.text_area :plant, placeholder: "Enter new seed..." %>
     <%= f.text_area :source, placeholder: "Enter source of info: Self, neighbor, website name, etc..." %>
   </div>

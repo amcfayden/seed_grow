@@ -3,12 +3,13 @@ require 'spec_helper'
 describe Seed do
 
 let(:user) { FactoryGirl.create(:user) }
-before { @seed = user.seeds.build(plant: "Pink Rose", source: "Almanac.com") }
+before { @seed = user.seeds.build(plant: "Pink Rose", source: "Almanac.com", zone: 1) }
 
   subject { @seed }
 
   it { should respond_to(:plant) }
   it { should respond_to(:source) }
+  it { should respond_to(:zone) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   its(:user) { should == user }
@@ -37,6 +38,16 @@ before { @seed = user.seeds.build(plant: "Pink Rose", source: "Almanac.com") }
 
   describe "with source that is too long" do
     before { @seed.source = "a" * 141 }
+    it { should_not be_valid }
+  end
+
+  describe "with blank zone" do
+    before { @seed.zone = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with zone that is too long" do
+    before { @seed.zone = 1 * 100 }
     it { should_not be_valid }
   end
 

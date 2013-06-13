@@ -4,6 +4,7 @@
     <%= link_to feed_item.user.name, feed_item.user %>
   </span>
   <span class="plant"><%= feed_item.plant %></span>
+  <i>Zone:</i> <span class="source"><%= feed_item.zone %></span>
   <i>Source:</i> <span class="source"><%= feed_item.source %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(feed_item.created_at) %> ago.

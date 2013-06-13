@@ -18,6 +18,7 @@ FactoryGirl.define do
   factory :seed do
     plant "Pink Rose"
     source "Almanac.com"
+    zone "1"
     user
   end
 end
