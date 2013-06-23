@@ -18,6 +18,14 @@ class SeedsController < ApplicationController
     redirect_to root_url
   end
 
+  def zone
+    if params[:zone].present?
+    @seeds = Seed.paginate(page: params[:page]).find(:all, :conditions => ['zone LIKE ?', params[:zone]])
+    else
+      @seeds = Seed.paginate(page: params[:page]).find(:all)
+    end
+  end
+
    private
 
     def correct_user

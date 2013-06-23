@@ -1,0 +1,15 @@
+<% provide(:title) %>
+
+  <div class="span8">
+
+    <h3>Seeds for Zone <%= params[:zone] %> <!-- (<%= @seeds.count %>) --></h3>
+
+<%= will_paginate %>
+
+    <ol class="seeds">
+    <%= render @seeds %>
+    </ol>
+
+<%= will_paginate %>
+
+  </div>
