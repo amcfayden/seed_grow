@@ -20,7 +20,7 @@ class SeedsController < ApplicationController
 
   def zone
     if params[:zone].present?
-    @seeds = Seed.paginate(page: params[:page]).find(:all, :conditions => ['zone LIKE ?', params[:zone]])
+    @seeds = Seed.paginate(page: params[:page]).find(:all, :conditions => ['CAST(zone as TEXT) LIKE ?', params[:zone]])
     else
       @seeds = Seed.paginate(page: params[:page]).find(:all)
     end
